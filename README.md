@@ -48,5 +48,4 @@ the card name in the selected language. For example:
 
 Use standard input/output to read/write to/from files:
 
-    decktr -t pt:en < my_deck_in_portuguese.txt > my_deck_in_english.txt
-
+    decktr -t en:pt < decksample.txt
