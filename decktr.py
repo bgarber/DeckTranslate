@@ -1,8 +1,8 @@
 #! /usr/bin/python3
 
+import re
 import argparse
 import scryfallapi
-import re
 
 
 def parseArguments():
@@ -43,7 +43,7 @@ def readInput(input_fd=None):
             read_line = str(input())
 
     # Match a deck listing line
-    m = re.match(r'(\d+) ([\w,\' ]+)\((\w{3,4})\) (\d+)', read_line)
+    m = re.match(r"(\d+) ([\w,\' /]+)\((\w{3,4})\) (\d+)", read_line)
     if m:
         for pos in m.groups():
             line_list.append(pos.strip())
@@ -89,10 +89,8 @@ def executeTranslation(langs, in_file=None):
 
                 if 'printed_name' in translate_res:
                     t_name = translate_res['printed_name']
-                elif 'card_faces' in translate_res:
-                    t_name = translate_res['card_faces'][0]['printed_name']
                 else:
-                    t_name = '???'
+                    t_name = translate_res['name']
 
                 if len(line_list) == 4:
                     print(line_list[0] + ' ' + t_name + ' (' + card_set_code

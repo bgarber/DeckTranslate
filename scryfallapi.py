@@ -14,6 +14,8 @@ def __execute_scryfall_req(req):
     req = requests.get(scryfall_url + req)
     data = json.loads(req.text)
 
+    #print(str(data))
+
     if data['object'] == 'error' and data['status'] == 404:
         raise Exception('Card not found.')
 
