@@ -1,8 +1,7 @@
 DeckTranslate
 ================================================================================
 
-# 1. Disclaimer
---------------------------------------------------------------------------------
+## 1. Disclaimer
 
 DeckTranslate is unofficial Fan Content permitted under the Fan Content Policy.
 Not approved/endorsed by Wizards. Portions of the materials used are property
@@ -20,7 +19,6 @@ For a guide on the Scryfall API, please check https://scryfall.com/docs/api.
 For a guide on the Wizards Fan Content Policy, please check https://company.wizards.com/fancontentpolicy
 
 ## 2. About
---------------------------------------------------------------------------------
 
 With the launch of the Magic: the Gathering Arena came the possibilty to import
 and export decks to/from the Internet. By default, the Arena will use your
@@ -33,7 +31,6 @@ Translating card by card yor deck listing is a pain. So, this tool helps you
 translating your entire deck.
 
 ## 3. Usage
---------------------------------------------------------------------------------
 
 Example:
 
