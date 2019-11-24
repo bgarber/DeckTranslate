@@ -27,8 +27,8 @@ that awesome deck you created on sites like TappedOut.net, that site won't
 understand your deck, because the site understands English, but your deck is on
 portuguese.
 
-Translating card by card yor deck listing is a pain. So, this tool helps you
-translating your entire deck.
+Translating card by card your deck listing is a pain. So, this tool aims to
+help you translating your entire deck.
 
 ## 3. Usage
 
