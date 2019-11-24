@@ -74,18 +74,18 @@ def executeTranslation(langs):
                 translate_res = scryfallapi.findCard(card_set_code,
                         card_coll_n, langs[1])
 
-                if len(line_list) == 4:
-                    if 'printed_name' in translate_res:
-                        t_name = translate_res['printed_name']
-                    elif 'card_faces' in translate_res:
-                        t_name = translate_res['card_faces'][0]['printed_name']
-                    else:
-                        t_name = '???'
+                if 'printed_name' in translate_res:
+                    t_name = translate_res['printed_name']
+                elif 'card_faces' in translate_res:
+                    t_name = translate_res['card_faces'][0]['printed_name']
+                else:
+                    t_name = '???'
 
+                if len(line_list) == 4:
                     print(line_list[0] + ' ' + t_name + ' (' + card_set_code
                             + ') ' + card_coll_n)
                 else:
-                    print(translate_res['printed_name'])
+                    print(t_name)
         except Exception as e:
             print(str(e))
             break
