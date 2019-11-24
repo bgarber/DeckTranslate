@@ -68,7 +68,7 @@ def executeTranslation(langs):
                 card_set_code = line_list[2]
                 card_coll_n = line_list[3]
             else:
-                print('Could not understand input: ' + str(input_line))
+                print('Could not understand input: ' + str(line_list))
 
             if card_set_code and card_coll_n:
                 translate_res = scryfallapi.findCard(card_set_code,
