@@ -9,6 +9,9 @@ def parseArguments():
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
 
+    parser.add_argument('-f', '--file',
+            help='Use file as input data.', required=False)
+
     group.add_argument('-t', '--translate',
             help='Languages to translate, in the format \'to:from\'.')
     group.add_argument('-l', '--list', action='store_true',
@@ -29,12 +32,15 @@ def validateTranslateString(tr_str):
     return langs
 
 
-def readInput():
+def readInput(input_fd=None):
     line_list = list()
 
-    read_line = str(input())
-    while len(read_line) == 0:
+    if input_fd:
+        read_line = input_fd.readline()
+    else:
         read_line = str(input())
+        while len(read_line) == 0:
+            read_line = str(input())
 
     # Match a deck listing line
     m = re.match(r'(\d+) ([\w,\' ]+)\((\w{3,4})\) (\d+)', read_line)
@@ -47,12 +53,19 @@ def readInput():
     return line_list
 
 
-def executeTranslation(langs):
+def executeTranslation(langs, in_file=None):
+    in_file_fd = None
+    if in_file:
+        in_file_fd = open(in_file, 'r')
+
     while True:
         try:
-            line_list = readInput()
+            line_list = readInput(in_file_fd)
             card_set_code = None
             card_coll_n = None
+
+            if len(line_list) == 1 and len(line_list[0]) == 0:
+                break
 
             if len(line_list) == 1:
                 # Handle this input as a single card
@@ -89,6 +102,9 @@ def executeTranslation(langs):
         except Exception as e:
             print(str(e))
             break
+    
+    if in_file_fd:
+        in_file_fd.close()
 
 
 if __name__ == "__main__":
@@ -98,6 +114,6 @@ if __name__ == "__main__":
     else:
         langs = validateTranslateString(args.translate)
         if langs is not None:
-            executeTranslation(langs)
+            executeTranslation(langs, args.file)
         else:
             print('Invalid \'translate\' string.')
