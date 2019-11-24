@@ -25,7 +25,7 @@ and export decks to/from the Internet. By default, the Arena will use your
 system's language, which is not bad at all. But, if you wish to export and share
 that awesome deck you created on sites like TappedOut.net, that site won't
 understand your deck, because the site understands English, but your deck is on
-portuguese.
+Portuguese.
 
 Translating card by card your deck listing is a pain. So, this tool aims to
 help you translating your entire deck.
