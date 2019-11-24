@@ -1,7 +1,7 @@
 DeckTranslate
 ================================================================================
 
-1. Disclaimer
+# 1. Disclaimer
 --------------------------------------------------------------------------------
 
 DeckTranslate is unofficial Fan Content permitted under the Fan Content Policy.
@@ -19,7 +19,7 @@ and/or approve this software by any means.
 For a guide on the Scryfall API, please check https://scryfall.com/docs/api.
 For a guide on the Wizards Fan Content Policy, please check https://company.wizards.com/fancontentpolicy
 
-2. About
+## 2. About
 --------------------------------------------------------------------------------
 
 With the launch of the Magic: the Gathering Arena came the possibilty to import
@@ -32,7 +32,7 @@ portuguese.
 Translating card by card yor deck listing is a pain. So, this tool helps you
 translating your entire deck.
 
-3. Usage
+## 3. Usage
 --------------------------------------------------------------------------------
 
 Example:
