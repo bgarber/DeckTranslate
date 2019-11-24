@@ -46,3 +46,36 @@ the card name in the selected language. For example:
 Use standard input/output to read/write to/from files:
 
     decktr -t en:pt < decksample.txt
+    4 Rato Ladrão (GRN) 64
+    2 Fuga Sombria de Davriel (WAR) 84
+    2 Davriel, Mago das Sombras Ladino (WAR) 83
+    4 Desfigurar (M20) 95
+    3 Coagir (M20) 97
+    2 Cavaleiro da Legião de Ébano (M20) 105
+    3 Ginete Homicida (ELD) 97
+    4 Dossel Esmagador (GRN) 126
+    3 Despojar Alma (ELD) 103
+    1 Prole do Pandemônio (RNA) 85
+    23 Pântano (M20) 269
+    2 Assombração da Torre Alta (RNA) 273
+    4 Rumores Pravos (GRN) 89
+    3 Espreitador Pantaneiro de Yarok (M20) 123
+
+On Windows, you will need to use the '-f' parameter (Windows doesn't support
+standard input redirection):
+
+    > python decktr.py -t en:pt -f decksample.txt
+    4 Rato Ladrão (GRN) 64
+    2 Fuga Sombria de Davriel (WAR) 84
+    2 Davriel, Mago das Sombras Ladino (WAR) 83
+    4 Desfigurar (M20) 95
+    3 Coagir (M20) 97
+    2 Cavaleiro da Legião de Ébano (M20) 105
+    3 Ginete Homicida (ELD) 97
+    4 Dossel Esmagador (GRN) 126
+    3 Despojar Alma (ELD) 103
+    1 Prole do Pandemônio (RNA) 85
+    23 Pântano (M20) 269
+    2 Assombração da Torre Alta (RNA) 273
+    4 Rumores Pravos (GRN) 89
+    3 Espreitador Pantaneiro de Yarok (M20) 123
