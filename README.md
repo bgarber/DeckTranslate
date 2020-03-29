@@ -1,5 +1,4 @@
-DeckTranslate
-================================================================================
+# DeckTranslate
 
 ## 1. Disclaimer
 
@@ -15,8 +14,9 @@ by a fan, for fans, and just for fun.
 This software makes use of the Scryfall database API. Scryfall does not endorse
 and/or approve this software by any means.
 
-For a guide on the Scryfall API, please check https://scryfall.com/docs/api.
-For a guide on the Wizards Fan Content Policy, please check https://company.wizards.com/fancontentpolicy
+For a guide on the Scryfall API, please check <https://scryfall.com/docs/api.>
+
+For a guide on the Wizards Fan Content Policy, please check <https://company.wizards.com/fancontentpolicy>
 
 ## 2. About
 
@@ -53,7 +53,7 @@ Use standard input/output to read/write to/from files:
     3 Coagir (M20) 97
     2 Cavaleiro da Legião de Ébano (M20) 105
     3 Ginete Homicida (ELD) 97
-    4 Dossel Esmagador (GRN) 126
+    4 Empesteiro (GRN) 126
     3 Despojar Alma (ELD) 103
     1 Prole do Pandemônio (RNA) 85
     23 Pântano (M20) 269
@@ -72,7 +72,7 @@ standard input redirection):
     3 Coagir (M20) 97
     2 Cavaleiro da Legião de Ébano (M20) 105
     3 Ginete Homicida (ELD) 97
-    4 Dossel Esmagador (GRN) 126
+    4 Empesteiro (GRN) 126
     3 Despojar Alma (ELD) 103
     1 Prole do Pandemônio (RNA) 85
     23 Pântano (M20) 269
