@@ -7,7 +7,7 @@ def __execute_scryfall_req(req):
     scryfall_url = 'https://api.scryfall.com/'
 
     # Scryfall kindly asks us to put a 50ms delay between requests.
-    time.sleep(0.05)
+    time.sleep(.5)
 
     #print(scryfall_url + req)
 
@@ -17,7 +17,7 @@ def __execute_scryfall_req(req):
     #print(str(data))
 
     if data['object'] == 'error' and data['status'] == 404:
-        raise Exception('Card not found.')
+        raise Exception('card not found.')
 
     return data
 
