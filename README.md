@@ -14,7 +14,7 @@ by a fan, for fans, and just for fun.
 This software makes use of the Scryfall database API. Scryfall does not endorse
 and/or approve this software by any means.
 
-For a guide on the Scryfall API, please check <https://scryfall.com/docs/api.>
+For a guide on the Scryfall API, please check <https://scryfall.com/docs/api>.
 
 For a guide on the Wizards Fan Content Policy, please check <https://company.wizards.com/fancontentpolicy>
 
