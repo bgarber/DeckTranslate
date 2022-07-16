@@ -6,7 +6,7 @@ import scryfallapi
 
 
 def parseArguments():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Translates a deck listing from a language to another')
     group = parser.add_mutually_exclusive_group(required=True)
 
     parser.add_argument('-f', '--file',
