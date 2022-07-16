@@ -1,0 +1,13 @@
+znr 123 en
+rtr 40 pt
+znr 242 en
+znr 82 en
+gtc 178 pt
+gtc 186 en
+dgm 15 pt
+znr 70 en
+dgm 90 en
+rtr 40 pt
+rtr 47 en
+rtr 37 en
+gtc 66 en

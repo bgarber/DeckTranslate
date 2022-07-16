@@ -1,0 +1,21 @@
+3 Adventurous Impulse (IKO) 142
+4 Arboreal Grazer (WAR) 149
+4 Barkhide Troll (M20) 165
+3 Castle Garenbrig (ELD) 240
+20 Forest (JMP) 70
+3 Gemrazer (IKO) 155
+4 Leafkin Druid (M20) 178
+3 Migratory Greathorn (IKO) 165
+3 Nylea, Keen-Eyed (THB) 185
+3 Questing Beast (ELD) 171
+4 Ram Through (IKO) 170
+3 The Great Henge (ELD) 161
+3 Yorvo, Lord of Garenbrig (ELD) 185
+// Sideboard
+2 Arasta of the Endless Web (THB) 165
+2 Charge of the Forever-Beast (IKO) 147
+2 Destiny Spinner (THB) 168
+3 Return to Nature (M21) 200
+3 Shifting Ceratops (M20) 194
+1 Thrashing Brontodon (M21) 209
+2 Vivien, Champion of the Wilds (WAR) 180
