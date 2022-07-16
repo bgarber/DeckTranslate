@@ -2,22 +2,16 @@
 
 pub enum QueryError {
     CardNotFound,
-    Timeout,
-    ServerError,
-}
-
-impl QueryError {
-    pub fn to_str(&self) -> &str {
-        match self {
-            QueryError::CardNotFound => "card not found",
-            QueryError::Timeout => "timeout waiting response",
-            QueryError::ServerError => "general error on server",
-        }
-    }
+    ClientError(reqwest::Error),
+    HTTPError(reqwest::StatusCode),
 }
 
 impl ToString for QueryError {
     fn to_string(&self) -> String {
-        self.to_str().to_string()
+        match self {
+            QueryError::CardNotFound => String::from("card not found"),
+            QueryError::ClientError(e) => format!("client error: {}", e),
+            QueryError::HTTPError(c) => format!("http error: {}", c),
+        }
     }
 }

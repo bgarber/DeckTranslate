@@ -7,4 +7,4 @@ edition = "2021"
 
 [dependencies]
 reqwest = { version = "0.11", features = ["blocking", "json"] }
-#urlencode = "1.0.1"
+serde = { version = "1.0.139", features = ["derive"] }
