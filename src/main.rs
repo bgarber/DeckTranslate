@@ -3,7 +3,7 @@
 pub mod scryfall;
 
 fn main() {
-    let query_resp = scryfall::api::query("Ajani Juba d'Ouro");
+    let query_resp = scryfall::api::query("Ajani Goldmane");
     match query_resp {
         Ok(card) => {
             println!("returned card: {:?}", card);
