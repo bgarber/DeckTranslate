@@ -7,10 +7,10 @@ const SCRYFALL_API: &str = "https://api.scryfall.com/";
 const CARDSEARCH: &str = "cards/search";
 
 pub fn query(q: &str) -> Result<Vec<Card>, QueryError> {
-    let url = SCRYFALL_API.to_owned() + CARDSEARCH + "?q=" + q;
-    let resp_result = reqwest::blocking::get(url);
+    let url = format!("{}{}?q={}", SCRYFALL_API, CARDSEARCH, q);
+    let result = reqwest::blocking::get(url);
 
-    match resp_result {
+    match result {
         Ok(resp) => match resp.status() {
             reqwest::StatusCode::OK => match resp.json::<CardList>() {
                 Ok(card_list) => {
