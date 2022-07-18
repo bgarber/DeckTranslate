@@ -6,6 +6,7 @@ use serde::{Serialize, Deserialize};
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Card {
     pub name: String,
+    pub printed_name: String,
     pub lang: String,
     pub set: String,
     pub collector_number: String,

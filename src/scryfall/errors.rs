@@ -1,5 +1,6 @@
 // Copyright 2022 Bryan Garber under GPLv3
 
+#[derive(Debug)]
 pub enum QueryError {
     CardNotFound,
     ClientError(reqwest::Error),

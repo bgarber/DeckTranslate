@@ -3,13 +3,14 @@
 pub mod scryfall;
 
 fn main() {
-    let query_resp = scryfall::api::query("Ajani Goldmane");
-    match query_resp {
-        Ok(card) => {
-            println!("returned card: {:?}", card);
-        },
-        Err(err) => {
-            println!("error: {}", err.to_string());
-        },
-    }
+    let card_list = scryfall::api::query("Ajani").unwrap();
+
+    println!("returned cards: {:?}", card_list);
+
+    let card = &card_list[0];
+    println!("using card: {:?}", card);
+
+    let tr_card =
+        scryfall::api::find_card(&card.set, card.collector_number.parse().unwrap(), "pt").unwrap();
+    println!("translated card: {:?}", tr_card);
 }
