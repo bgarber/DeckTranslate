@@ -10,6 +10,7 @@ pub struct Card {
     pub collector_number: u32,
 }
 
+// Implement type conversion from serde_json::Value to a Card
 impl From<&serde_json::Value> for Card {
     fn from(c: &serde_json::Value) -> Self {
         Card {
@@ -53,6 +54,14 @@ impl From<&serde_json::Value> for Card {
                 0
             },
         }
+    }
+}
+
+// Implement type conversion from String to a Card
+impl From<String> for Card {
+    fn from(c: String) -> Self {
+        let re = regex::Regex::new(r"(\d+) ([\w,\-\' /]+) \((\w{3,4})\) (\d+)").unwrap();
+        let caps = re.captures(c).unwrap();
     }
 }
 
