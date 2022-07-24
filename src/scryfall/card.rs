@@ -61,7 +61,15 @@ impl From<&serde_json::Value> for Card {
 impl From<String> for Card {
     fn from(c: String) -> Self {
         let re = regex::Regex::new(r"(\d+) ([\w,\-\' /]+) \((\w{3,4})\) (\d+)").unwrap();
-        let caps = re.captures(c).unwrap();
+        let caps = re.captures(&c).unwrap();
+
+        Card {
+            name: String::from(""),
+            printed_name: String::from(""),
+            lang: String::from(""),
+            set: String::from(""),
+            collector_number: 0,
+        }
     }
 }
 
