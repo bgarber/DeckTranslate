@@ -17,8 +17,11 @@ fn translate_deck() {
 
     for line in file_reader.lines() {
         if let Ok(l) = line {
-            let card: scryfall::card::Card = l.into();
-            println!("{card:?}");
+            //let card: scryfall::card::Card = l.into();
+            let card: scryfall::card::Card = l.parse().unwrap();
+            let translated = scryfall::api::find_card(&card.set, card.collector_number, "pt").unwrap();
+
+            println!("{} => {}", card.name, translated.printed_name);
         }
     }
 }
@@ -31,13 +34,6 @@ fn main() {
 
     translate_deck();
 
-
-    let card_list = scryfall::api::query("Ajani").unwrap();
-    println!("returned cards: {:?}", card_list);
-
-    let card = &card_list[0];
-    println!("using card: {:?}", card);
-
-    let tr_card = scryfall::api::find_card(&card.set, card.collector_number, "pt").unwrap();
-    println!("translated card: {:?}", tr_card);
+    //let card_list = scryfall::api::query("Ajani").unwrap();
+    //println!("returned cards: {:?}", card_list);
 }

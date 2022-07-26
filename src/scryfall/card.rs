@@ -38,6 +38,7 @@ impl From<&serde_json::Value> for Card {
                     }
                 },
                 None => {
+                    //match c["card_faces"]{
                     if let Some(pn) = c["name"].as_str() {
                         String::from(pn)
                     } else {
@@ -58,17 +59,32 @@ impl From<&serde_json::Value> for Card {
 }
 
 // Implement type conversion from String to a Card
-impl From<String> for Card {
-    fn from(c: String) -> Self {
-        let re = regex::Regex::new(r"(\d+) ([\w,\-\' /]+) \((\w{3,4})\) (\d+)").unwrap();
-        let caps = re.captures(&c).unwrap();
+impl std::str::FromStr for Card {
+    type Err = crate::scryfall::errors::QueryError;
 
-        Card {
-            name: String::from(""),
-            printed_name: String::from(""),
-            lang: String::from(""),
-            set: String::from(""),
-            collector_number: 0,
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let re = regex::Regex::new(r"(\d+) ([\w,\-' /]+) \((\w{3,4})\) (\d+)").unwrap();
+
+        if let Some(caps) = re.captures(&s) {
+            let card_name = caps.get(2).unwrap().as_str();
+            let card_set = caps.get(3).unwrap().as_str().to_lowercase();
+            let card_number: u32 = caps.get(4).unwrap().as_str().parse().unwrap();
+
+            Ok(Card {
+                name: String::from(card_name),
+                printed_name: String::from(card_name),
+                lang: String::from("en"), // fix-me, assuming English
+                set: String::from(card_set),
+                collector_number: card_number,
+            })
+        } else {
+            Ok(Card {
+                name: String::from(""),
+                printed_name: String::from(""),
+                lang: String::from(""),
+                set: String::from(""),
+                collector_number: 0,
+            })
         }
     }
 }
