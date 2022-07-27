@@ -7,9 +7,9 @@ use std::io;
 use std::io::BufRead;
 use std::process;
 
-fn translate_deck() {
-    let filename = "tests/decksample.txt";
-    let file = File::open(filename).unwrap_or_else(|err| {
+// Begins the translation of a deckfile
+fn translate_deck(deck: &str) {
+    let file = File::open(deck).unwrap_or_else(|err| {
         println!("error opening file: {err}");
         process::exit(0);
     });
@@ -32,7 +32,7 @@ fn main() {
     println!("pwd = {pwd}");
     */
 
-    translate_deck();
+    translate_deck("tests/decksample.txt");
 
     //let card_list = scryfall::api::query("Ajani").unwrap();
     //println!("returned cards: {:?}", card_list);
