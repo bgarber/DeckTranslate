@@ -5,7 +5,7 @@
 3 Duress (M20) 97
 2 Knight of the Ebon Legion (M20) 105
 3 Murderous Rider (ELD) 97
-4 Plaguecrafter (GRN) 126
+4 Plaguecrafter (GRN) 82
 3 Reave Soul (ELD) 103
 1 Spawn of Mayhem (RNA) 85
 23 Swamp (M20) 269

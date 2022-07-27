@@ -19,9 +19,9 @@ fn translate_deck() {
         if let Ok(l) = line {
             //let card: scryfall::card::Card = l.into();
             let card: scryfall::card::Card = l.parse().unwrap();
-            let translated = scryfall::api::find_card(&card.set, card.collector_number, "pt").unwrap();
+            let translated = scryfall::api::find_card(card.set(), card.number(), "pt").unwrap();
 
-            println!("{} => {}", card.name, translated.printed_name);
+            println!("{} => {}", card.name(), translated.name());
         }
     }
 }
