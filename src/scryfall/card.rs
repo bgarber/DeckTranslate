@@ -24,7 +24,15 @@ pub struct Card {
 // Method implementations for a Card object
 impl Card {
     pub fn name(&self) -> &str {
-        self.printed_name.as_str()
+        if self.printed_name.is_empty() {
+            self.name.as_str()
+        } else {
+            self.printed_name.as_str()
+        }
+    }
+
+    pub fn lang(&self) -> &str {
+        self.lang.as_str()
     }
 
     pub fn set(&self) -> &str {
@@ -51,12 +59,12 @@ impl From<&serde_json::Value> for Card {
                         if let Some(pn) = face.get("printed_name") {
                             extract_string!(pn.as_str())
                         } else {
-                            extract_string!(face["name"].as_str())
+                            String::from("")
                         }
                     } else {
-                        extract_string!(c["name"].as_str())
+                        String::from("")
                     }
-                },
+                }
             },
             collector_number: if let Some(coll_n) = c["collector_number"].as_str() {
                 match String::from(coll_n).parse::<u32>() {
@@ -100,4 +108,3 @@ impl std::str::FromStr for Card {
         }
     }
 }
-
