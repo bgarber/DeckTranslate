@@ -23,6 +23,22 @@ pub struct Card {
 
 // Method implementations for a Card object
 impl Card {
+    pub fn new(
+        name: String,
+        printed_name: String,
+        lang: String,
+        set: String,
+        collector_number: u32,
+    ) -> Card {
+        Card {
+            name,
+            printed_name,
+            lang,
+            set,
+            collector_number,
+        }
+    }
+
     pub fn name(&self) -> &str {
         if self.printed_name.is_empty() {
             self.name.as_str()
@@ -74,37 +90,6 @@ impl From<&serde_json::Value> for Card {
             } else {
                 0
             },
-        }
-    }
-}
-
-// Implement type conversion from String to a Card
-impl std::str::FromStr for Card {
-    type Err = crate::scryfall::errors::QueryError;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let re = regex::Regex::new(r"(\d+) ([\w,\-' /]+) \((\w{3,4})\) (\d+)").unwrap();
-
-        if let Some(caps) = re.captures(&s) {
-            let card_name = caps.get(2).unwrap().as_str();
-            let card_set = caps.get(3).unwrap().as_str().to_lowercase();
-            let card_number: u32 = caps.get(4).unwrap().as_str().parse().unwrap();
-
-            Ok(Card {
-                name: String::from(card_name),
-                printed_name: String::from(card_name),
-                lang: String::from("en"), // fix-me, assuming English
-                set: String::from(card_set),
-                collector_number: card_number,
-            })
-        } else {
-            Ok(Card {
-                name: String::from(""),
-                printed_name: String::from(""),
-                lang: String::from(""),
-                set: String::from(""),
-                collector_number: 0,
-            })
         }
     }
 }
