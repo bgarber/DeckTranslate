@@ -3,9 +3,24 @@
 use crate::scryfall::card::Card;
 use crate::scryfall::errors::QueryError;
 
+// Consider making a Scryfall client struct...
 const SCRYFALL_API: &str = "https://api.scryfall.com/";
+const REQUESTS_INTERVAL: std::time::Duration = std::time::Duration::from_millis(50);
+static mut LAST_API_CALL: std::time::SystemTime = std::time::SystemTime::UNIX_EPOCH;
 
 fn scrycall(endpoint: &String) -> Result<reqwest::blocking::Response, QueryError> {
+    // The Scryfall RESTAPI kindly asks any client to keep a sane number of
+    // requests. So we insert a sleep of 50 milliseconds between each call.
+    unsafe {
+        // I barely learned Rust and I'm already using unsafe code.
+        // Shame on me! XD
+        let current_time = std::time::SystemTime::now();
+        if current_time < LAST_API_CALL + REQUESTS_INTERVAL {
+            std::thread::sleep(REQUESTS_INTERVAL);
+            LAST_API_CALL = current_time;
+        }
+    }
+
     let url = format!("{}{}", SCRYFALL_API, endpoint);
     let result = reqwest::blocking::get(url);
 
@@ -34,7 +49,7 @@ pub fn query(q: &str) -> Result<Vec<Card>, QueryError> {
             }
 
             Ok(card_vec)
-        },
+        }
         _ => Err(QueryError::UnexpectedData),
     }
 }
