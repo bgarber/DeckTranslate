@@ -1,14 +1,14 @@
 // Copyright 2022 Bryan Garber under GPLv3
 
 use crate::scryfall::card::Card;
-use crate::scryfall::errors::QueryError;
+use crate::scryfall::errors::Error;
 
 // Consider making a Scryfall client struct...
 const SCRYFALL_API: &str = "https://api.scryfall.com/";
 const REQUESTS_INTERVAL: std::time::Duration = std::time::Duration::from_millis(50);
 static mut LAST_API_CALL: std::time::SystemTime = std::time::SystemTime::UNIX_EPOCH;
 
-fn scrycall(endpoint: &String) -> Result<reqwest::blocking::Response, QueryError> {
+fn scrycall(endpoint: &String) -> Result<reqwest::blocking::Response, Error> {
     // The Scryfall RESTAPI kindly asks any client to keep a sane number of
     // requests. So we insert a sleep of 50 milliseconds between each call.
     unsafe {
@@ -27,14 +27,14 @@ fn scrycall(endpoint: &String) -> Result<reqwest::blocking::Response, QueryError
     match result {
         Ok(resp) => match resp.status() {
             reqwest::StatusCode::OK => Ok(resp),
-            reqwest::StatusCode::NOT_FOUND => Err(QueryError::CardNotFound),
-            _ => Err(QueryError::HTTPError(resp.status())),
+            reqwest::StatusCode::NOT_FOUND => Err(Error::CardNotFound),
+            _ => Err(Error::HTTPError(resp.status())),
         },
-        Err(err) => Err(QueryError::ClientError(err)),
+        Err(err) => Err(Error::ClientError(err)),
     }
 }
 
-pub fn query(q: &str) -> Result<Vec<Card>, QueryError> {
+pub fn query(q: &str) -> Result<Vec<Card>, Error> {
     let query_ep = format!("cards/search?q={}", q);
     let response = scrycall(&query_ep)?;
     let json_data = response.text().unwrap(); // hopeful unwrap. :)
@@ -50,11 +50,11 @@ pub fn query(q: &str) -> Result<Vec<Card>, QueryError> {
 
             Ok(card_vec)
         }
-        _ => Err(QueryError::UnexpectedData),
+        _ => Err(Error::UnexpectedData),
     }
 }
 
-pub fn find_card(code: &str, number: u32, lang: &str) -> Result<Card, QueryError> {
+pub fn find_card(code: &str, number: u32, lang: &str) -> Result<Card, Error> {
     let find_card_ep = format!("cards/{}/{}/{}", code, number, lang);
     let response = scrycall(&find_card_ep)?;
     let json_data = response.text().unwrap(); // hopeful unwrap. :)

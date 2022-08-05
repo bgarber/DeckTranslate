@@ -1,20 +1,20 @@
 // Copyright 2022 Bryan Garber under GPLv3
 
 #[derive(Debug)]
-pub enum QueryError {
+pub enum Error {
     CardNotFound,
     UnexpectedData,
     ClientError(reqwest::Error),
     HTTPError(reqwest::StatusCode),
 }
 
-impl ToString for QueryError {
-    fn to_string(&self) -> String {
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            QueryError::CardNotFound => String::from("card not found"),
-            QueryError::UnexpectedData => String::from("unexpected data returned from server"),
-            QueryError::ClientError(e) => format!("client error: {}", e),
-            QueryError::HTTPError(c) => format!("http error: {}", c),
+            Error::CardNotFound => write!(f, "card not found"),
+            Error::UnexpectedData => write!(f, "unexpected data returned from server"),
+            Error::ClientError(e) => write!(f, "client error: {}", e),
+            Error::HTTPError(c) => write!(f, "http error: {}", c),
         }
     }
 }

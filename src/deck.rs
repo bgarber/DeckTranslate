@@ -30,7 +30,7 @@ impl std::fmt::Display for DeckItem {
             "{} {} ({}) {}",
             self.copies,
             self.card.name(),
-            self.card.set(),
+            self.card.set().to_uppercase(),
             self.card.number(),
         )
     }
@@ -67,6 +67,7 @@ impl std::str::FromStr for DeckItem {
 
 pub type Deck = Vec<DeckItem>;
 
+/// Loads a deck listing from a file
 pub fn load(filename: &str) -> Result<Deck, Error> {
     let file = File::open(filename)?;
     let reader = io::BufReader::new(file);
@@ -83,15 +84,20 @@ pub fn load(filename: &str) -> Result<Deck, Error> {
     Ok(deck)
 }
 
-// Translates a Deck
-pub fn translate(deck: Deck) {
+// Translates a deck listing to target language
+pub fn translate(deck: Deck, target_lang: &str) -> Result<Deck, scryfall::errors::Error> {
+    let mut translated_deck = Deck::new();
+
     for deck_item in deck {
-        let tr_card =
-            scryfall::api::find_card(deck_item.card.set(), deck_item.card.number(), "pt").unwrap();
+        let card =
+            scryfall::api::find_card(deck_item.card.set(), deck_item.card.number(), target_lang)?;
         let tr_item = DeckItem {
             copies: deck_item.copies,
-            card: tr_card,
+            card: card,
         };
-        println!("{}", tr_item);
+
+        translated_deck.push(tr_item);
     }
+
+    Ok(translated_deck)
 }
