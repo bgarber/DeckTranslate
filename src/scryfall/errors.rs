@@ -6,6 +6,7 @@ pub enum Error {
     UnexpectedData,
     ClientError(reqwest::Error),
     HTTPError(reqwest::StatusCode),
+    ParseError(serde_json::Error),
 }
 
 impl std::fmt::Display for Error {
@@ -15,6 +16,19 @@ impl std::fmt::Display for Error {
             Error::UnexpectedData => write!(f, "unexpected data returned from server"),
             Error::ClientError(e) => write!(f, "client error: {}", e),
             Error::HTTPError(c) => write!(f, "http error: {}", c),
+            Error::ParseError(j) => write!(f, "parse error: {}", j),
         }
+    }
+}
+
+impl From<reqwest::Error> for Error {
+    fn from(e: reqwest::Error) -> Self {
+        Error::ClientError(e)
+    }
+}
+
+impl From<serde_json::Error> for Error {
+    fn from(e: serde_json::Error) -> Self {
+        Error::ParseError(e)
     }
 }

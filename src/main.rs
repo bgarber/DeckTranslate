@@ -28,13 +28,15 @@ fn main() {
     let args = DeckTranslate::parse();
     if let Some(deckfile) = args.deckfile {
         match deck::load(&deckfile) {
-            Ok(deck) => {
-                let translated = deck::translate(deck, &args.lang).unwrap();
-                for card in translated {
-                    println!("{card}");
+            Ok(deck) => match deck::translate(deck, &args.lang) {
+                Ok(translated) => {
+                    for card in translated {
+                        println!("{card}");
+                    }
                 }
-            }
-            Err(e) => eprintln!("error: {:?}", e),
+                Err(e) => eprintln!("error: {:?}", e),
+            },
+            Err(e) => eprintln!("could not open file: {:?}", e),
         }
     } else {
         eprintln!("deck-translate REPL not implemented... yet!");

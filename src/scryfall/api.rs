@@ -37,8 +37,8 @@ fn scrycall(endpoint: &String) -> Result<reqwest::blocking::Response, Error> {
 pub fn query(q: &str) -> Result<Vec<Card>, Error> {
     let query_ep = format!("cards/search?q={}", q);
     let response = scrycall(&query_ep)?;
-    let json_data = response.text().unwrap(); // hopeful unwrap. :)
-    let parsed_json: serde_json::Value = serde_json::from_str(&json_data).unwrap();
+    let json_data = response.text()?;
+    let parsed_json: serde_json::Value = serde_json::from_str(&json_data)?;
 
     match &parsed_json["data"] {
         serde_json::Value::Array(card_list) => {
@@ -57,8 +57,8 @@ pub fn query(q: &str) -> Result<Vec<Card>, Error> {
 pub fn find_card(code: &str, number: u32, lang: &str) -> Result<Card, Error> {
     let find_card_ep = format!("cards/{}/{}/{}", code, number, lang);
     let response = scrycall(&find_card_ep)?;
-    let json_data = response.text().unwrap(); // hopeful unwrap. :)
-    let parsed_json: serde_json::Value = serde_json::from_str(&json_data).unwrap();
+    let json_data = response.text()?;
+    let parsed_json: serde_json::Value = serde_json::from_str(&json_data)?;
 
     Ok(Card::from(&parsed_json))
 }
