@@ -32,7 +32,7 @@ fn main() {
         let deck_listing = deck::load(&deckfile).expect("could not open file");
 
         let translated_deck =
-            deck::translate(deck_listing, &args.lang).expect("error tranlating deck");
+            deck::translate(deck_listing, &args.lang).expect("error translating deck");
 
         for card in translated_deck {
             println!("{card}");
