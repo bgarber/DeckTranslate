@@ -67,7 +67,7 @@ impl std::str::FromStr for DeckItem {
                     copies: deck_item_copies,
                     card: scryfall::card::Card::new(
                         String::from(card_name),
-                        String::from(card_name),
+                        None,
                         String::from("en"), // fix-me, assuming English
                         String::from(card_set),
                         card_number,

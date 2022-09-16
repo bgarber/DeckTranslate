@@ -1,49 +1,61 @@
 // Copyright 2022 Bryan Garber under GPLv3
 
-// Macro for extracting a String from a Option<Value>
-macro_rules! extract_string {
-    ($value:expr) => {
-        if let Some(v) = $value {
-            String::from(v)
+use serde::{Deserialize, Serialize};
+
+// CardFace defines a face for modal cards
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CardFace {
+    name: String,
+    printed_name: Option<String>,
+}
+
+impl CardFace {
+    fn name(&self) -> &str {
+        if let Some(pn) = &self.printed_name {
+            pn.as_str()
         } else {
-            String::from("")
+            self.name.as_str()
         }
-    };
+    }
 }
 
 // Card defines a card from the Scryfall database
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Card {
     name: String,
-    printed_name: String,
+    printed_name: Option<String>,
     lang: String,
     set: String,
-    collector_number: u32,
+    collector_number: String,
+    card_faces: Option<Vec<CardFace>>,
 }
 
 // Method implementations for a Card object
 impl Card {
     pub fn new(
         name: String,
-        printed_name: String,
+        printed_name: Option<String>,
         lang: String,
         set: String,
-        collector_number: u32,
+        number: u32,
     ) -> Card {
         Card {
             name,
             printed_name,
             lang,
             set,
-            collector_number,
+            collector_number: format!("{}", number),
+            card_faces: None,
         }
     }
 
     pub fn name(&self) -> &str {
-        if self.printed_name.is_empty() {
-            self.name.as_str()
+        if let Some(pn) = &self.printed_name {
+            pn.as_str()
+        } else if let Some(cf) = &self.card_faces {
+            cf[0].name()
         } else {
-            self.printed_name.as_str()
+            self.name.as_str()
         }
     }
 
@@ -56,40 +68,17 @@ impl Card {
     }
 
     pub fn number(&self) -> u32 {
-        self.collector_number
+        // Since this is a private field, and I control its content, I can
+        // safely assume the unwrap() will always succeed.
+        self.collector_number.parse::<u32>().unwrap()
     }
 }
 
-// Implement type conversion from serde_json::Value to a Card
-impl From<&serde_json::Value> for Card {
-    fn from(c: &serde_json::Value) -> Self {
-        Card {
-            name: extract_string!(c["name"].as_str()),
-            lang: extract_string!(c["lang"].as_str()),
-            set: extract_string!(c["set"].as_str()),
-            printed_name: match c.get("printed_name") {
-                Some(printed_name) => extract_string!(printed_name.as_str()),
-                None => {
-                    if let Some(serde_json::Value::Array(card_faces)) = c.get("card_faces") {
-                        let face = &card_faces[0];
-                        if let Some(pn) = face.get("printed_name") {
-                            extract_string!(pn.as_str())
-                        } else {
-                            String::from("")
-                        }
-                    } else {
-                        String::from("")
-                    }
-                }
-            },
-            collector_number: if let Some(coll_n) = c["collector_number"].as_str() {
-                match String::from(coll_n).parse::<u32>() {
-                    Ok(cn) => cn,
-                    Err(_) => 0,
-                }
-            } else {
-                0
-            },
-        }
-    }
+// CardList defines a listing of cards, when querying the database.
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CardList {
+    total_cards: u64,
+    has_more: bool,
+    next_page: Option<String>,
+    data: Vec<Card>,
 }

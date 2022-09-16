@@ -6,9 +6,11 @@ pub mod scryfall;
 use clap::Parser;
 
 #[derive(Parser, Debug)]
-#[clap(author, version, about, long_about = None)]
-/// deck-translate is a CLI tool to quickly "translate" Magic: the Gathering
-/// decks to a specified language.
+#[clap(author = "Bryan Garber <spellcasterbryan@gmail.com>")]
+#[clap(version = "")]
+#[clap(about = "Translate deck listings")]
+#[clap(long_about = "deck-translate is a CLI tool to quickly \"translate\" \
+    Magic: the Gathering decks to a specified language.")]
 struct DeckTranslate {
     /// A file containing a valid deck listing
     #[clap(value_parser, value_name = "DECK")]
@@ -39,6 +41,8 @@ fn main() {
         eprintln!("deck-translate REPL not implemented... yet!");
     }
 
-    //let card_list = scryfall::api::query("Ajani").unwrap();
-    //println!("returned cards: {:?}", card_list);
+    /*
+    let card_list = scryfall::api::query("Ajani").unwrap();
+    println!("returned cards: {:?}", card_list);
+    */
 }
