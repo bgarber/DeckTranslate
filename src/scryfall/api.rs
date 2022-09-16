@@ -15,9 +15,11 @@ fn scrycall(endpoint: &String) -> Result<reqwest::blocking::Response, Error> {
         // The Scryfall RESTAPI kindly asks any client to keep a sane number of
         // requests. So we insert a sleep of 50 milliseconds between each call.
         let current_time = std::time::SystemTime::now();
-        if current_time < LAST_API_CALL + REQUESTS_INTERVAL {
-            std::thread::sleep(REQUESTS_INTERVAL);
-            LAST_API_CALL = current_time;
+        let expected_time = LAST_API_CALL + REQUESTS_INTERVAL;
+        if let Err(err) = current_time.duration_since(expected_time) {
+            // expected_time is later than current_time, then err will have the
+            // Duration up to expected_time
+            std::thread::sleep(err.duration());
         }
     }
 
