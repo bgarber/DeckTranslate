@@ -1,7 +1,6 @@
 // Copyright 2022 Bryan Garber under GPLv3
 
 pub mod deck;
-pub mod scryfall;
 
 use clap::Parser;
 

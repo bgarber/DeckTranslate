@@ -1,1 +1,3 @@
-/target
+target/
+deck-translate/target/
+scryfall_rs/target/

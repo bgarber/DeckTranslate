@@ -4,8 +4,6 @@ use std::fs::File;
 use std::io;
 use std::io::BufRead;
 
-use crate::scryfall;
-
 /// Defines Errors for when processing a Deck
 #[derive(Debug)]
 pub enum Error {
@@ -30,7 +28,7 @@ impl From<std::num::ParseIntError> for Error {
 /// DeckItem represents a card in a Deck
 pub struct DeckItem {
     copies: u8,
-    card: scryfall::card::Card,
+    card: scryfall_rs::card::Card,
 }
 
 /// Implement the Display trait for a DeckItem
@@ -65,7 +63,7 @@ impl std::str::FromStr for DeckItem {
 
                 Ok(DeckItem {
                     copies: deck_item_copies,
-                    card: scryfall::card::Card::new(
+                    card: scryfall_rs::card::Card::new(
                         String::from(card_name),
                         None,
                         String::from("en"), // fix-me, assuming English
@@ -103,12 +101,12 @@ pub fn load(filename: &str) -> Result<Deck, Error> {
 }
 
 /// Translates a deck listing to target language
-pub fn translate(deck: Deck, target_lang: &str) -> Result<Deck, scryfall::errors::Error> {
+pub fn translate(deck: Deck, target_lang: &str) -> Result<Deck, scryfall_rs::errors::Error> {
     let mut translated_deck = Deck::new();
 
     for deck_item in deck {
         let card =
-            scryfall::api::find_card(deck_item.card.set(), deck_item.card.number(), target_lang)?;
+            scryfall_rs::find_card(deck_item.card.set(), deck_item.card.number(), target_lang)?;
         let tr_item = DeckItem {
             copies: deck_item.copies,
             card: card,
