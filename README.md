@@ -31,7 +31,7 @@ For now, you must clone this repository. You may run it using the Cargo command:
 cargo run -- -h
 ```
 
-Or build it and run it:
+Or build and run it:
 ```bash
 cargo build && target/debug/deck-translate -h
 ```
