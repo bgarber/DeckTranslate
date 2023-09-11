@@ -109,7 +109,7 @@ pub fn translate(deck: Deck, target_lang: &str) -> Result<Deck, scryfall_rs::err
             scryfall_rs::find_card(deck_item.card.set(), deck_item.card.number(), target_lang)?;
         let tr_item = DeckItem {
             copies: deck_item.copies,
-            card: card,
+            card,
         };
 
         translated_deck.push(tr_item);
